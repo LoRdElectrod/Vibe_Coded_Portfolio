@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@theme {
+  --color-space-black: #050505;
+  --color-neon-blue: #00f0ff;
+  --color-neon-cyan: #0ff0fc;
+  --color-crisp-white: #ffffff;
+  --color-gray-text: #9ca3af;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-space-black);
+  color: var(--color-crisp-white);
+  font-family: 'Inter', system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+canvas {
+  touch-action: none;
+}
