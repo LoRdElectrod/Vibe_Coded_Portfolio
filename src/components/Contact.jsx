@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Send } from 'lucide-react';
+import { Mail, Send, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 
 const GithubIcon = ({ className = "", size = 24 }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
@@ -17,6 +17,46 @@ const LinkedinIcon = ({ className = "", size = 24 }) => (
 );
 
 const Contact = () => {
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [status, setStatus] = useState(''); // '', 'submitting', 'success', 'error'
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus('submitting');
+
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/sharmasuyash135@gmail.com", {
+        method: "POST",
+        headers: { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            ...formData,
+            _subject: `New Portfolio Message from ${formData.name}`,
+        })
+      });
+      
+      if (response.ok) {
+        setStatus('success');
+        setFormData({ name: '', email: '', message: '' });
+        // Hide success message after 5 seconds
+        setTimeout(() => setStatus(''), 5000);
+      } else {
+        setStatus('error');
+        setTimeout(() => setStatus(''), 5000);
+      }
+    } catch (error) {
+      console.error(error);
+      setStatus('error');
+      setTimeout(() => setStatus(''), 5000);
+    }
+  };
+
   return (
     <footer id="contact" className="py-20 px-4 md:px-20 bg-space-black relative border-t border-white/10">
       <div className="max-w-4xl mx-auto">
@@ -63,6 +103,7 @@ const Contact = () => {
 
           {/* Form */}
           <motion.form
+             onSubmit={handleSubmit}
              initial={{ opacity: 0, x: 30 }}
              whileInView={{ opacity: 1, x: 0 }}
              viewport={{ once: true }}
@@ -70,17 +111,32 @@ const Contact = () => {
              className="space-y-4"
           >
             <div>
-              <input type="text" placeholder="Your Name" className="w-full bg-[#0a0a0f] border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-neon-cyan focus:ring-1 focus:ring-neon-cyan transition-colors" />
+              <input required type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Your Name" className="w-full bg-[#0a0a0f] border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-neon-cyan focus:ring-1 focus:ring-neon-cyan transition-colors" />
             </div>
             <div>
-              <input type="email" placeholder="Your Email" className="w-full bg-[#0a0a0f] border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-neon-cyan focus:ring-1 focus:ring-neon-cyan transition-colors" />
+              <input required type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Your Email" className="w-full bg-[#0a0a0f] border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-neon-cyan focus:ring-1 focus:ring-neon-cyan transition-colors" />
             </div>
             <div>
-              <textarea placeholder="Your Message" rows="4" className="w-full bg-[#0a0a0f] border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-neon-cyan focus:ring-1 focus:ring-neon-cyan transition-colors resize-none"></textarea>
+              <textarea required name="message" value={formData.message} onChange={handleChange} placeholder="Your Message" rows="4" className="w-full bg-[#0a0a0f] border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-neon-cyan focus:ring-1 focus:ring-neon-cyan transition-colors resize-none"></textarea>
             </div>
-            <button type="button" className="w-full bg-neon-blue/10 border border-neon-blue text-neon-blue py-3 rounded-lg font-semibold hover:bg-neon-blue hover:text-space-black transition-all duration-300 shadow-[0_0_15px_rgba(0,240,255,0.2)] hover:shadow-[0_0_25px_rgba(0,240,255,0.5)] flex items-center justify-center gap-2">
-               <Send size={18} />
-               Send Message
+            
+            {status === 'success' && (
+                <div className="flex items-center gap-2 text-green-400 bg-green-400/10 p-3 rounded-lg border border-green-400/20">
+                    <CheckCircle size={18} />
+                    <span>Message sent successfully!</span>
+                </div>
+            )}
+            
+            {status === 'error' && (
+                <div className="flex items-center gap-2 text-red-400 bg-red-400/10 p-3 rounded-lg border border-red-400/20">
+                    <AlertCircle size={18} />
+                    <span>Failed to send message. Please try again later.</span>
+                </div>
+            )}
+
+            <button disabled={status === 'submitting'} type="submit" className="w-full bg-neon-blue/10 border border-neon-blue text-neon-blue py-3 rounded-lg font-semibold hover:bg-neon-blue hover:text-space-black transition-all duration-300 shadow-[0_0_15px_rgba(0,240,255,0.2)] hover:shadow-[0_0_25px_rgba(0,240,255,0.5)] flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
+               {status === 'submitting' ? <Loader2 size={18} className="animate-spin" /> : <Send size={18} />}
+               {status === 'submitting' ? 'Sending...' : 'Send Message'}
             </button>
           </motion.form>
         </div>
