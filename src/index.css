@@ -1,21 +1,77 @@
 @import "tailwindcss";
 
 @theme {
-  --color-space-black: #050505;
-  --color-neon-blue: #00f0ff;
-  --color-neon-cyan: #0ff0fc;
-  --color-crisp-white: #ffffff;
-  --color-gray-text: #9ca3af;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* We'll use CSS variables built for light/dark mode */
+  --color-primary: var(--color-bg);
+  --color-secondary: var(--color-bg-secondary);
+  --color-text-primary: var(--color-text);
+  --color-text-secondary: var(--color-text-muted);
+  --color-border-grid: var(--color-border);
+  --color-accent: var(--color-accent-base);
+  --color-accent-hover: var(--color-accent-hover-base);
+}
+
+@layer base {
+  :root {
+    /* Light Mode (Spreadsheet) */
+    --color-bg: #ffffff;
+    --color-bg-secondary: #f3f4f6;
+    --color-text: #111827;
+    --color-text-muted: #6b7280;
+    --color-border: #e5e7eb;
+    --color-accent-base: #2563eb;
+    --color-accent-hover-base: #1d4ed8;
+  }
+
+  .dark {
+    /* Dark Mode (IDE) */
+    --color-bg: #0f111a;
+    --color-bg-secondary: #1a1d27;
+    --color-text: #f3f4f6;
+    --color-text-muted: #9ca3af;
+    --color-border: #374151;
+    --color-accent-base: #00f0ff;
+    --color-accent-hover-base: #0ff0fc;
+  }
 }
 
 body {
   margin: 0;
-  background-color: var(--color-space-black);
-  color: var(--color-crisp-white);
-  font-family: 'Inter', system-ui, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
   overflow-x: hidden;
 }
 
 canvas {
   touch-action: none;
+}
+
+/* Custom Scrollbar for IDE feel */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-muted);
+}
+
+/* Grid lines for background */
+.bg-grid-pattern {
+  background-image: 
+    linear-gradient(to right, var(--color-border) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-border) 1px, transparent 1px);
+  background-size: 40px 40px;
 }

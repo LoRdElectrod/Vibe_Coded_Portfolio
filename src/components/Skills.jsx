@@ -1,62 +1,59 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Settings2 } from 'lucide-react';
 
 const skillCategories = [
   {
     title: 'Programming',
-    skills: ['Python', 'R', 'SQL'],
-    color: 'from-blue-500 to-cyan-400'
+    skills: ['Python', 'R', 'SQL', 'JavaScript'],
   },
   {
     title: 'ML & AI',
     skills: ['Scikit-learn', 'PyTorch', 'TensorFlow', 'NLP', 'Transformers'],
-    color: 'from-purple-500 to-pink-500'
   },
   {
     title: 'Tools & Data',
     skills: ['Power BI', 'AWS', 'Docker', 'Flask', 'Git'],
-    color: 'from-green-400 to-emerald-600'
   }
 ];
 
 const Skills = () => {
   return (
-    <section id="skills" className="py-20 px-4 md:px-20 bg-[#07070a] relative">
-      <div className="max-w-6xl mx-auto">
-        <motion.div
-           initial={{ opacity: 0, y: 30 }}
-           whileInView={{ opacity: 1, y: 0 }}
-           viewport={{ once: true }}
-           transition={{ duration: 0.8 }}
-           className="text-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Core <span className="text-neon-cyan">Skills</span></h2>
-          <div className="w-24 h-1 bg-neon-blue mx-auto rounded-full shadow-[0_0_10px_rgba(0,240,255,0.8)]"></div>
-        </motion.div>
+    <section id="skills" className="font-mono text-sm mt-12 bg-primary border border-border-grid rounded-lg overflow-hidden">
+      <div className="flex border-b border-border-grid bg-secondary/50 items-center px-4 py-2 text-text-muted">
+        <Settings2 size={16} className="mr-2 text-accent" />
+        <span>settings.json</span>
+      </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="p-4 md:p-8 overflow-x-auto text-text-primary">
+        <div className="min-w-[400px]">
+          <span className="text-text-muted">{"{"}</span>
+          <br/>
+          <span className="text-accent ml-4">"skills"</span><span className="text-text-primary">:</span> <span className="text-text-muted">{"{"}</span>
+          
           {skillCategories.map((cat, index) => (
              <motion.div
                 key={index}
-                initial={{ opacity: 0, scale: 0.9 }}
+                initial={{ opacity: 0, scale: 0.98 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.2 }}
-                className="bg-[#0a0a0f] rounded-2xl p-8 border border-white/5 hover:border-white/20 transition-all duration-300 relative overflow-hidden group"
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+                className="ml-8 my-2"
              >
-                {/* Background gradient orb */}
-                <div className={`absolute -top-20 -right-20 w-40 h-40 bg-gradient-to-r ${cat.color} rounded-full blur-[60px] opacity-20 group-hover:opacity-40 transition-opacity duration-500`}></div>
-                
-                <h3 className="text-2xl font-bold text-white mb-6 relative z-10">{cat.title}</h3>
-                <div className="flex flex-wrap gap-3 relative z-10">
+                <span className="text-accent">"{cat.title.toLowerCase().replace(/ /g, '_')}"</span><span className="text-text-primary">:</span> <span className="text-text-muted">[</span>
+                <div className="ml-4 flex flex-wrap gap-2 py-1">
                    {cat.skills.map((skill, sIdx) => (
-                      <span key={sIdx} className="px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-gray-300 font-medium hover:text-neon-cyan hover:border-neon-cyan/50 hover:bg-neon-blue/10 transition-colors shadow-sm">
-                        {skill}
+                      <span key={sIdx} className="text-text-secondary">
+                        "{skill}"{sIdx < cat.skills.length - 1 ? <span className="text-text-primary">,</span> : ''}
                       </span>
                    ))}
                 </div>
+                <span className="text-text-muted">]</span>{index < skillCategories.length - 1 ? <span className="text-text-primary">,</span> : ''}
              </motion.div>
           ))}
+          <span className="text-text-muted ml-4">{"}"}</span>
+          <br/>
+          <span className="text-text-muted">{"}"}</span>
         </div>
       </div>
     </section>

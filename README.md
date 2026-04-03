@@ -1,13 +1,14 @@
-# 3D Data Science Portfolio
+# The Data Grid - Data Science Portfolio
 
-A professional, interactive 3D portfolio website showcasing expertise as a Data Scientist and Machine Learning engineer. This project features a cyberpunk-themed, responsive frontend with 3D interactive elements (such as neural network and data node visualizations), designed to provide an engaging and immersive user experience.
+A professional, IDE and Spreadsheet-inspired portfolio website showcasing expertise as a Data Scientist and Machine Learning engineer. This project features a unique "Data Grid" aesthetic that mimics a sleek development environment with Light and Dark mode capabilities, alongside 3D interactive elements designed to provide an engaging and immersive user experience.
 
 ## Features
 
+- **The Data Grid Aesthetic**: An IDE/Spreadsheet hybrid theme utilizing clean grid lines, code-comment typography, and monospace fonts.
+- **Light & Dark Modes**: Fully functional Theme Context toggling between a bright "Spreadsheet" light mode and a deep "IDE" dark mode.
 - **Immersive 3D Experience**: Interactive neural network and data visualizations using Three.js and React Three Fiber.
-- **Cyberpunk Aesthetic**: Modern, sleek, dark-themed UI built with Tailwind CSS.
-- **Dynamic Content**: Smooth page transitions and micro-animations for an enhanced, alive feel.
-- **Comprehensive Sections**: Includes Hero, About Me, 3D Project Gallery, Experience Timeline, Skills Matrix, and Contact sections.
+- **Dynamic Content**: Smooth page transitions, Framer micro-animations, and JSON/Terminal styled layouts.
+- **Comprehensive Sections**: Includes GitHub-style commit Experience timeline, JSON Skills Matrix, and Terminal Contact sections.
 - **Responsive Design**: Optimized for desktops, tablets, and mobile devices.
 
 ## Tech Stack
