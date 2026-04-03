@@ -7,14 +7,14 @@ const experiences = [
     hash: 'a1b2c3d',
     title: 'Machine Learning Intern',
     company: 'ListApps',
-    date: 'Recent',
+    date: 'Jan 2025 - August 2025',
     description: 'Developed an OCR-based order automation system, significantly reducing manual entry. Designed and integrated multilingual speech-to-text achievements to expand accessibility and usability.',
   },
   {
     hash: 'e4f5g6h',
     title: 'Energy Sales Executive',
-    company: 'Remote',
-    date: 'Previous',
+    company: 'Beyond Tech Info Solutions',
+    date: 'April 2025 - July 2025',
     description: 'Specialized in procurement analytics and reporting. Streamlined sales pipelines through data-driven insights, improving overall operational efficiency and strategic outreach.',
   }
 ];
@@ -32,13 +32,13 @@ const Experience = () => {
         <div className="absolute top-0 bottom-0 left-8 md:left-12 w-px bg-border-grid"></div>
 
         {experiences.map((exp, index) => (
-          <motion.div 
-             key={index}
-             initial={{ opacity: 0, x: -20 }}
-             whileInView={{ opacity: 1, x: 0 }}
-             viewport={{ once: true }}
-             transition={{ duration: 0.5, delay: 0.1 * index }}
-             className="relative pl-12 md:pl-16 group"
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 * index }}
+            className="relative pl-12 md:pl-16 group"
           >
             {/* Commit Dot */}
             <div className="absolute left-[11px] md:left-[27px] top-1.5 p-1 bg-primary border border-accent rounded-full group-hover:bg-accent/20 transition-colors">
@@ -51,7 +51,7 @@ const Experience = () => {
               <span className="text-text-muted">@ {exp.company}</span>
               <span className="text-text-secondary text-xs ml-auto border border-border-grid px-2 py-0.5 rounded bg-secondary/30">{exp.date}</span>
             </div>
-            
+
             <p className="text-text-secondary text-sm leading-relaxed max-w-3xl">
               {exp.description}
             </p>
